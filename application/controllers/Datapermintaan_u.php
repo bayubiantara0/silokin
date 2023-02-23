@@ -37,8 +37,9 @@ class Datapermintaan_u extends MY_Controller
 
     public function index()
     {
+        $data['title'] = "Data Permintaan";
         $this->load->helper('url');
-        $this->template->load('layoutbackend', 'datapermintaan_u');
+        $this->template->load('layoutbackend', 'datapermintaan_u', $data);
     }
 
     public function ajax_list()
@@ -78,6 +79,5 @@ class Datapermintaan_u extends MY_Controller
         $id = $this->input->post('id_permintaan');
         $this->Mod_permintaan->delete_pn($id, 'permintaan');
         echo json_encode(array("status" => true));
-
     }
 }
