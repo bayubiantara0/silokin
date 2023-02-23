@@ -10,6 +10,7 @@ class Pengajuanperawatan extends MY_Controller
 
     public function index()
     {
+        $data['title'] = "Surat Perawatan";
         $data['kendaraan'] = $this->Mod_pengajuanperawatan->getdata();
         $data['tujuan'] = $this->Mod_pengajuanperawatan->gettujuan();
         $data['ketentuan'] = $this->Mod_pengajuanperawatan->getketentuan();

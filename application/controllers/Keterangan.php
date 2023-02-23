@@ -44,6 +44,7 @@ class Keterangan extends MY_Controller
 
     public function index()
     {
+        $data['title'] = "Keterangan";
         $data['tbl_ket'] = $this->Mod_keterangan->getdata();
         $this->load->helper('url');
         $this->template->load('layoutbackend', 'admin/keterangan', $data);
