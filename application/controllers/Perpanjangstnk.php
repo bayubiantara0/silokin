@@ -10,6 +10,7 @@ class Perpanjangstnk extends MY_Controller
 
     public function index()
     {
+        $data['title'] = "Surat Pajak dan STNK";
         $data['kendaraan'] = $this->Mod_pengajuanperawatan->getdata();
         $this->load->helper('url');
         $this->template->load('layoutbackend', 'perpanjangstnk', $data);

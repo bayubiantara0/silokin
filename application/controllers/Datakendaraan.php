@@ -37,8 +37,9 @@ class Datakendaraan extends MY_Controller
 
     public function index()
     {
+        $data['title'] = "Data Kendaraan";
         $this->load->helper('url');
-        $this->template->load('layoutbackend', 'datakendaraan');
+        $this->template->load('layoutbackend', 'datakendaraan', $data);
     }
 
     public function ajax_list()
@@ -126,10 +127,10 @@ class Datakendaraan extends MY_Controller
 
     public function update()
     {
-        if(!empty($_FILES['stnk']['name'])) {
+        if (!empty($_FILES['stnk']['name'])) {
             $this->_validate();
             $id = $this->input->post('id');
-            
+
             $jenis = $this->input->post('jenis');
             $merk = $this->input->post('merk');
             $tipe = $this->input->post('type');
@@ -145,11 +146,11 @@ class Datakendaraan extends MY_Controller
             $config['upload_path']   = './assets/stnk/';
             $config['allowed_types'] = 'jpg|png|jpeg|gif|docx|doc|pdf'; //mencegah upload backdor
             $config['max_size']      = '2048';
-            $config['file_name']     = $stnk; 
-            
-                $this->upload->initialize($config);
-                
-                if ($this->upload->do_upload('stnk')){
+            $config['file_name']     = $stnk;
+
+            $this->upload->initialize($config);
+
+            if ($this->upload->do_upload('stnk')) {
                 $file = $this->upload->data();
                 $save  = array(
                     'jenis_kendaraan' => $jenis,
@@ -164,62 +165,62 @@ class Datakendaraan extends MY_Controller
                     'berita' => $berita,
                     'stnk' => $file['file_name'],
                 );
-                
+
                 $g = $this->Mod_kendaraan->get_kendaraan($id)->row_array();
-    
+
                 if ($g != null) {
                     //hapus gambar yg ada diserver
-                    unlink('assets/stnk/'.$g['stnk']);
+                    unlink('assets/stnk/' . $g['stnk']);
                 }
-               
+
                 $this->Mod_kendaraan->update_barang($id, $save);
                 echo json_encode(array("status" => TRUE));
-                }else{//Apabila tidak ada gambar yang di upload
-                    $save  = array(
-                        'jenis_kendaraan' => $jenis,
-                        'merk' => $merk,
-                        'tipe' => $tipe,
-                        'tahun_penerbitan' => $tahun,
-                        'warna' => $warna,
-                        'nomor_polisi' => $nomor,
-                        'no_rangka' => $no,
-                        'bahan_bakar' => $bahan,
-                        'pemilik' => $pemegang,
-                        'berita' => $berita,
-                );
-                $this->Mod_kendaraan->update_barang($id, $save);
-                echo json_encode(array("status" => TRUE));
-                }
-            }else{
-                $this->_validate();
-                $id = $this->input->post('id');
-                $jenis = $this->input->post('jenis');
-                $merk = $this->input->post('merk');
-                $tipe = $this->input->post('type');
-                $tahun = $this->input->post('tahun');
-                $warna = $this->input->post('warna');
-                $nomor = $this->input->post('nopol');
-                $no = $this->input->post('nomor');
-                $bahan = $this->input->post('bahan');
-                $pemegang = $this->input->post('pemegang');
-                $berita = $this->input->post('berita');
-                $stnk = $this->input->post('stnk');
-    
+            } else { //Apabila tidak ada gambar yang di upload
                 $save  = array(
-                        'jenis_kendaraan' => $jenis,
-                        'merk' => $merk,
-                        'tipe' => $tipe,
-                        'tahun_penerbitan' => $tahun,
-                        'warna' => $warna,
-                        'nomor_polisi' => $nomor,
-                        'no_rangka' => $no,
-                        'bahan_bakar' => $bahan,
-                        'pemilik' => $pemegang,
-                        'berita' => $berita,
+                    'jenis_kendaraan' => $jenis,
+                    'merk' => $merk,
+                    'tipe' => $tipe,
+                    'tahun_penerbitan' => $tahun,
+                    'warna' => $warna,
+                    'nomor_polisi' => $nomor,
+                    'no_rangka' => $no,
+                    'bahan_bakar' => $bahan,
+                    'pemilik' => $pemegang,
+                    'berita' => $berita,
                 );
                 $this->Mod_kendaraan->update_barang($id, $save);
                 echo json_encode(array("status" => TRUE));
             }
+        } else {
+            $this->_validate();
+            $id = $this->input->post('id');
+            $jenis = $this->input->post('jenis');
+            $merk = $this->input->post('merk');
+            $tipe = $this->input->post('type');
+            $tahun = $this->input->post('tahun');
+            $warna = $this->input->post('warna');
+            $nomor = $this->input->post('nopol');
+            $no = $this->input->post('nomor');
+            $bahan = $this->input->post('bahan');
+            $pemegang = $this->input->post('pemegang');
+            $berita = $this->input->post('berita');
+            $stnk = $this->input->post('stnk');
+
+            $save  = array(
+                'jenis_kendaraan' => $jenis,
+                'merk' => $merk,
+                'tipe' => $tipe,
+                'tahun_penerbitan' => $tahun,
+                'warna' => $warna,
+                'nomor_polisi' => $nomor,
+                'no_rangka' => $no,
+                'bahan_bakar' => $bahan,
+                'pemilik' => $pemegang,
+                'berita' => $berita,
+            );
+            $this->Mod_kendaraan->update_barang($id, $save);
+            echo json_encode(array("status" => TRUE));
+        }
     }
 
     public function viewkendaraan()
@@ -230,7 +231,6 @@ class Datakendaraan extends MY_Controller
         $data['data_field'] = $this->db->field_data($table);
         $data['data_table'] = $this->Mod_kendaraan->view_kendaraan($id)->result_array();
         $this->load->view('admin/view', $data);
-
     }
 
     public function edit_barang($id)
@@ -281,7 +281,6 @@ class Datakendaraan extends MY_Controller
         } else {
             echo "The File does not exist.";
         }
-
     }
     private function _validate()
     {

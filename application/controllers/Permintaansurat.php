@@ -37,8 +37,9 @@ class Permintaansurat extends CI_Controller
     }
     public function index()
     {
+        $data['title'] = "Permintaan Surat";
         $this->load->helper('url');
-        $this->template->load('layoutbackend', 'permintaansurat');
+        $this->template->load('layoutbackend', 'permintaansurat', $data);
     }
 
     public function view_user()
@@ -48,14 +49,11 @@ class Permintaansurat extends CI_Controller
             $data['pegawai_data'] = $this->Mod_user->get_pegawai_by_id($this->session->userdata('id_user'))->result_array();
             $data['pegawai'] = $this->Mod_user->get_pegawai_by_id($this->session->userdata('id_user'))->row_array();
             $this->load->view('permintaansurat', $data);
-
         } else {
 
             $this->session->set_flashdata('loggin_err', 'loggin_err');
             redirect('permintaansurat');
-
         }
-
     }
 
     public function proses_permintaan()
@@ -73,19 +71,14 @@ class Permintaansurat extends CI_Controller
 
             if ($hasil == false) {
                 $this->session->set_flashdata('eror_input', 'eror_input');
-
             } else {
                 $this->session->set_flashdata('input', 'input');
             }
             redirect('permintaansurat');
-
         } else {
 
             $this->session->set_flashdata('loggin_err', 'loggin_err');
             redirect('permintaansurat');
-
         }
-
     }
-
 }

@@ -37,8 +37,9 @@ class Datapermintaan_a extends MY_Controller
 
     public function index()
     {
+        $data['title'] = "Data Permintaan";
         $this->load->helper('url');
-        $this->template->load('layoutbackend', 'admin/datapermintaan_a');
+        $this->template->load('layoutbackend', 'admin/datapermintaan_a', $data);
     }
 
     public function ajax_list()
@@ -85,7 +86,6 @@ class Datapermintaan_a extends MY_Controller
 
         $this->Mod_permintaan->update_setuju($id_permintaan, $alasan_verifikasi);
         echo json_encode(array("status" => true));
-
     }
 
     public function updatetolak()
@@ -97,7 +97,6 @@ class Datapermintaan_a extends MY_Controller
 
         $this->Mod_permintaan->update_tolak($id_permintaan, $alasan_verifikasi);
         echo json_encode(array("status" => true));
-
     }
 
     public function delete()
@@ -115,7 +114,6 @@ class Datapermintaan_a extends MY_Controller
         }
 
         redirect('admin/datapermintaan_a' . $id_user);
-
     }
     private function _validate()
     {

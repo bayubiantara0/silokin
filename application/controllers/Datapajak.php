@@ -44,6 +44,7 @@ class Datapajak extends MY_Controller
 
     public function index()
     {
+        $data['title'] = "Data Pajak";
         $data['kendaraan'] = $this->Mod_pengajuanperawatan->getdata();
         $data['notif'] = $this->Mod_pajak->notif();
         $this->load->helper('url');
@@ -112,7 +113,6 @@ class Datapajak extends MY_Controller
         $data['data_field'] = $this->db->field_data($table);
         $data['data_table'] = $this->Mod_pajak->view_pajak($id)->result_array();
         $this->load->view('admin/view', $data);
-
     }
 
     public function edit_barang($id)

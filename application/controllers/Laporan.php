@@ -32,11 +32,11 @@ class Laporan extends MY_Controller
         parent::__construct();
         $this->load->model('Mod_laporan');
         $this->load->model('Mod_pengajuanperawatan');
-
     }
 
     public function index()
     {
+        $data['title'] = "Laporan";
         $data['kendaraan'] = $this->Mod_pengajuanperawatan->getdata();
         $this->template->load('layoutbackend', 'admin/laporan', $data);
     }
@@ -75,7 +75,6 @@ class Laporan extends MY_Controller
 
         $data = $this->Mod_laporan->getLaporan($id);
         echo json_encode($data);
-
     }
 
     public function insert()
@@ -114,7 +113,6 @@ class Laporan extends MY_Controller
         } else {
             echo "tidak masuk";
         }
-
     }
     public function download()
     {
@@ -142,7 +140,6 @@ class Laporan extends MY_Controller
         } else {
             echo "The File does not exist.";
         }
-
     }
 
     public function delete()
@@ -160,7 +157,6 @@ class Laporan extends MY_Controller
             echo "Gagal";
             echo $nama;
         }
-
     }
 
     private function _validate()
