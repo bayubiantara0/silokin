@@ -1,5 +1,5 @@
 Aplikasi Multi user
-Aplikasi ini untuk memanagement role user berdasarkan level.
+Aplikasi ini untuk Management inventaris kendaraan suatu instansi
 
 Aplikasi ini dibuat dengan framework codeigniter 3, silahkan di download atau dikembangkan
 
